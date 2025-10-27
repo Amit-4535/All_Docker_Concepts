@@ -1,0 +1,62 @@
+
+
+Container to Container communications
+
+
+Why Do Containers Need to Communicate with Each Other?
+In microservices architecture, container communication is essential because:
+
+
+  ✅ 1. Separation of concerns
+Each container handles a single responsibility:
+Container	Role
+web container	Runs the frontend (e.g., React/Angular/Nginx)
+api container	Runs the backend (e.g., Node.js/Flask)
+db container	Runs a database (e.g., MySQL/PostgreSQL/MongoDB)
+⏩ They must talk to each other for the full app to work.
+
+
+✅ 2. Common Real-World Use Cases
+Example	Explanation
+web → app	Frontend (HTML/JS) sends request to backend service
+app → db	Backend queries the database for data
+nginx → app	Nginx reverse-proxies traffic to application container
+worker → redis	Background job processing (e.g., Celery with Redis)
+
+
+✅ 3. DevOps / CI-CD Scenarios
+When testing or deploying apps via CI/CD pipelines, we often spin up:
+•	App container
+•	DB container
+•	Test container
+They must communicate to simulate production behavior.
+
+
+🧱 Bottom Line:
+Communication between containers is crucial when:
+•	Building multi-tier applications
+•	Creating test environments
+•	Using service-based architectures
+•	Configuring reverse proxies, queues, or shared file systems
+
+
+steps to do this container to container communications as below --
+
+1 create the comman network by the command 
+docker network create -d bridge testnetwork
+
+
+2 create 2 conntianers in that networks by the command 
+
+docker run -it --name container1 --network=testnetwork ubuntu /bin/bash
+docker run -it --name conatiner2 --network=testnetwork ubuntu /bin/bash
+
+3 Install ping or curl (optional)
+-	docker exec -it container1 bash
+-	apt update && apt install -y iputils-ping curl net-tools
+
+Test communication
+-	ping container2
+
+you will get the response back from the ping command, that means our both the containers are communicating to each others...
+do this vice varsa if you needed..
