@@ -1,0 +1,136 @@
+
+
+Docker Volume
+
+
+A Docker volume is a special storage area managed entirely by Docker,
+used to persist data generated and used by containers.
+
+When you create a container, any data inside it normally gets deleted when the container is removed.
+Volumes solve this by storing data outside the container’s writable layer — so it persists even if the container is deleted or recreated.
+
+🔹 Think of it like this:
+Without Volume	                                  With Volume
+Data is lost when container stops or is removed	  Data persists outside the container
+Exists only inside container filesystem	Stored    under /var/lib/docker/volumes on host
+Not shareable	                                  Easily shared between multiple containers
+
+On Linux, Docker stores volumes in:
+  /var/lib/docker/volumes/
+
+
+
+Each volume has its own folder with random names:
+  /var/lib/docker/volumes/<volume_name>/_data/
+
+
+note -- Everything you write inside the container’s mount path goes there.
+
+
+Why We Use Docker Volumes
+Reason	                Explanation
+Persistence	        Keep data even if container is deleted
+Sharing data	        Share files between multiple containers
+Performance	        Faster than bind mounts on Linux
+Security	        Docker controls access (safer than giving full host path)
+Backup & Restore	Easy to snapshot and move data
+Isolation	        Keeps app data separate from host filesystem
+
+
+Types of Docker Volumes
+
+There are three main types of data storage mechanisms in Docker:
+
+Type	        Managed By	      Host Path	                        Use Case
+Volume	        Docker	              /var/lib/docker/volumes/...	Best for persistent container data
+Bind Mount	User	              Any host path	                Best for dev/testing, live sync
+Tmpfs Mount	Kernel memory (RAM)   None (in-memory only)	        Temporary, fast, no persistence
+
+
+write a Dockerfile as below..
+
+# Use a lightweight base image
+FROM alpine
+
+# Install a simple package (optional)
+RUN apk add --no-cache curl
+
+# Create a directory that will be used as a volume
+RUN mkdir -p /mydata
+
+# Declare a volume
+VOLUME /mydata
+
+# Set working directory
+WORKDIR /mydata
+
+# Default command
+CMD ["sh"]
+
+
+build this Dockerfile --
+docker build -t imagename .
+
+now create the container from that image by command..
+docker run -it --name democont volumeimage /bin/sh
+
+(now you will be in the container and inside the mydata folder, just come out from that container and create the new container from this created container)
+
+
+docker run -it --name democontainer1 --volumes-from democont volumeimage /bin/sh
+
+(now the second container is created and the /mydata directory is also created, now do changes in this container and you can see the changed thing inside the other container as well, do this both the container inside the mydata folder you can see that changes will be reflecting both the side..)
+
+this is the container to container volume shares.
+
+
+
+creating volume through the command line.
+
+1)	Fire command to create the volume through the command line
+docker run -it --name volcont -v/volumes ubuntu /bin/sh
+
+2)	Now create some files inside this container Krushna.txt
+
+3)	And now create another container from this already container and share the container
+
+docker run -it --name container2 --volumes-from 1633fbce0f71 ubuntu /bin/sh
+
+( now you can see volumes sharing in this 2 containers..)
+
+
+
+sharing volumes from host to container
+
+1)	Create the container by using command 
+docker run -it --name hostcont -v /home/ec2-user:/tmp imagename /bin/bash   or
+docker run -it --name hostcont2 -v /home/ubuntu/All_Docker_Concepts:/tmp volumeimage /bin/sh
+
+
+2)	Now container will open  create the file inside the container 
+Krushna.txt
+
+
+4)	Now do create file in /home/ec2-user  and move to the container
+docker exec -it 8521cbe733a5 /bin/bash 		or
+docker attach containerID  move to /tmp folder 
+now you can see the files from the host.. that means we are sharing the host containers directories to host machines..
+
+
+5)	you can see the volume information by command 
+docker volume ls
+
+
+6)	and also can use the docker volume
+ inspect volumeid/name
+
+
+ 7)	you can delete the volume by the command 
+docker volume rm volumeID
+
+
+
+inspect the volume basically getting the detailed explanation through the 
+ docker volume inspect volumeID
+
+
