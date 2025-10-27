@@ -1,0 +1,22 @@
+
+
+
+Docker Installation
+
+1 update and ugrade your system
+  sudo apt-get update && apt-get upgrade -y
+
+2 install docker
+  sudo apt-get install docker.io
+
+3 check the docker is installed or not?
+  docker --version
+
+4 check the status docker is active or not?
+  systemctl status docker
+
+5 add your user to the docker group
+  sudo usermod -aG docker $USER
+
+6 check your added user is the part of the group or not?
+  getent group docker

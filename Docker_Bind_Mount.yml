@@ -1,0 +1,82 @@
+
+
+Docker Bind Mount
+
+
+A bind mount is a way to link a file or directory from your host machine (your computer) directly into a container’s filesystem.
+
+This means any change you make in the host folder is instantly visible inside the container, and vice versa.
+
+Location
+Any path on the host filesystem
+
+Management
+You manage it manually
+
+Persistence
+Yes (as long as the host path exists)
+
+Backup/Restore
+Manual
+
+Best for
+Development, testing
+
+Performance
+Faster for small dev setups
+
+syntax --
+docker run -v /host/path:/container/path IMAGE
+
+
+new recommended syntax
+docker run --mount type=bind,source=/host/path,target=/container/path IMAGE
+
+Both work the same way, but --mount is clearer and more explicit.
+
+✅ Advantages
+
+Instant synchronization between host and container
+
+Perfect for local development
+
+No need to rebuild the container to reflect code changes
+
+Full control over where data lives
+
+
+❌ Disadvantages
+
+Not portable (depends on your local file paths)
+
+Can cause permission conflicts
+
+Host filesystem changes can break the container
+
+Slightly less secure — container can access host files
+
+
+command to create the bind mount -- between your host machine and the containers.
+
+docker run -it --name bindcontainer -v /home/ubuntu/All_Docker_concepts:/tmp/test ubuntu /bin/bash
+
+
+explanations --
+
+docker run
+Runs a new container
+
+-it
+Interactive + TTY (so you can use the terminal inside the container)
+
+--name bindcontainer
+Names your container bindcontainer
+
+-v /home/ubuntu/All_Docker_concepts:/tmp/test
+This is your bind mount
+
+ubuntu
+Base image used for the container
+
+/bin/bash
+Command to start a bash shell inside the container
