@@ -1,0 +1,141 @@
+
+
+
+All Docker related commands..
+
+
+Image related commands
+
+search the image
+docker search imagename
+
+pull the image
+docker pull imagename
+
+check the history of the image 
+docker history imagename
+
+list all the used images
+docker images 
+
+list all the available images
+docker images -a
+
+removing an particular image
+docker rmi imagename
+
+remove multiple images at one go
+docker rmi imagename imagename
+
+remove all the images at one go
+docker rmi  $(docker images -aq)
+
+removing image forcefully 
+docker rmi --force imagename
+
+list the dangling images
+docker images -f "dangling=true"
+
+list only the image id
+docker images -q
+
+get the detailed information of the image
+docker inspect imagename
+
+
+container related commands
+
+creating the container
+docker run -it --name containername imagename /bin/bash
+
+creating container and send that container to detached mode
+docker run -dt --name contaiername imagename /bin/bash
+
+check all the running containers
+docker ps
+
+check all the available containers start and stop both the containers
+docker ps -a
+
+rename the container
+docker rename existingname newname
+
+check all the containers id only
+docker ps -aq
+
+you can check which os is running inside the container
+cat /etc/os-release containerid
+
+
+you can delete/remove the container by 
+docker rm containerid
+
+you can delete/remove multiple containers at one go
+docker rm containerid containerid
+
+you can delete all the containers at one go
+docker rm $(docker ps -aq)
+
+you can get all the information of the containers
+docker inspect containerid
+
+you can delete all the stopped containers, unused images, unused volumes and many more by the command
+docker system prune
+
+or 
+
+docker system prune -f
+
+you can check the difference in the container and used image by the command.
+docker diff contianerID 
+(this will show you the used image and task completed in containers, what all the things we have done in the containers that this command will show)
+
+you can come out from the container by the shortcut
+ctrl+p ctrl+q
+
+you can go inside the containers by the command
+docker attach containerid
+
+or
+
+docker exec -it containerid /bin/bash
+
+you can start the container by the command 
+docker start containerid
+
+you can stop the container by the command 
+docker stop containerid
+
+you can check that used space by the docker using command
+docker system df
+
+create the image from the container
+docker commit contianerID imagename
+
+(this command will create the newimage and all the data which is available inside the container that you will get here in this image, and if you create the new container from that image then you can see that all the data which is available inside the earlier container, that will be cloned as it is here in this new container)
+
+you can kill the container by the command 
+docker kill containerID
+
+you can stop all the containers by the command 
+docker stop $(docker ps -aq)
+
+docker start/stop/pause the docker
+sudo service docker start
+sudo service docker stop
+sudo service docker pause
+
+sudo systemctl docker srart
+sudo systemctl docker stop
+sudo systemctl docker pause
+
+
+
+you can check which os (operating system) is running inside the container
+docker inspect --format='{{.Config.Image}}' containerID
+
+you can start all the stopped containers
+docker ps -a -f "status=exited" -q | xargs docker start
+
+you can check that the state of the containers, like it is stopped, running ot exited by the command
+ docker inspect -f '{{.State.Status}}' <container_name_or_id>
