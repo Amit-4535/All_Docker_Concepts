@@ -1,0 +1,106 @@
+
+
+
+Port Mapping
+
+
+By default, a Docker container runs in isolation, meaning its internal ports are not exposed to the host machine or the outside world.
+
+Port mapping (also called port forwarding) connects a container port to a port on the host, so external systems can access the container’s application.
+
+Example Scenario
+
+You run an Nginx container (it listens on port 80 inside the container):
+  docker run -d --name web nginx
+
+  This runs successfully, but if you open http://<your_host_ip>:80,
+you won’t see anything, because Docker hasn’t published the container’s port yet.
+
+
+Publishing a Port (Basic Syntax)
+
+The option is -p (or --publish):
+  docker run -d -p <host_port>:<container_port> <image>
+
+
+  example --
+  docker run -d --name web -p 8080:80 nginx
+
+
+  This means:
+
+Container listens on port 80
+
+Host forwards requests from port 8080 → container port 80
+
+Now, visiting http://localhost:8080 or http://<host-ip>:8080
+will show your Nginx default page.
+
+
+
+example --
+
+
+1)	Create the container by the command
+ docker run -td –name portmapcontainer -p 80:80 imagename
+
+2)	Check container is created  docker ps -a
+
+3)	Go inside that container  docker exec -it containerid /bin/bash
+
+4)	Update the container  apt-get update -y
+5)	Install apache2  apt-get install apache2 -y
+6)	Move to cd /var/www/html  and update the index.html file  echo “hello from the container” > index.html
+
+7)	Restart the apache2 service  service apache2 restart
+8)	Copy your publicIP of the instance and move to the browser and paste the IP  you will get the data of the index.html file which is available inside the container..
+
+
+-	Note  you can run multiple services inside the docker container..
+Example  in the current container through port mapping I have opened the port 80 for apache2 service and now apache2 is working on 80 port.. now let us say suppose I want nginx service also needs to be run in that server then I can do that as well.. but this service we can not publish on the browser.. this will be applicable to only the container level..
+
+
+-	Another way we have is  at the container creation time we can pass the 2/3 ports and can run the services on it..
+
+Important  Example  docker run -td –name portmapcontainer -p 80:80 -p 8080:8080 imagename
+
+Through this above command we can run multiple services on the container..
+
+
+questions --
+
+“Can I publish another port or service in the same running container — without stopping or recreating it?”
+
+No, not directly.
+
+You cannot dynamically add or modify port mappings on a running container.
+Port publishing (-p or --publish) is configured only at container creation time.
+Once the container starts, those network rules are fixed.
+
+
+The Correct Way (Recommended)
+
+If you want to expose multiple ports from the same container,
+you need to do it when you start (or recreate) the container:
+  docker run -it --name portmappingcontainer \
+  -p 80:80 -p 8080:8080 ubuntu /bin/bash
+
+  (for multiple services)
+
+
+note -- both apache and nginx will try to run on the same port that is port 80.
+
+now do the changes inside the file --> nano /etc/nginx/sites-available/default
+
+
+here in this file go to the -- 
++ listen 81 default_server;
++ listen [::]:81 default_server;
+
+remove the + symbols and come out from the file (use ctrl +o and ctrl +x )
+
+then restart the service --> service nginx restart and if not installed then install it -- service nginx start
+
+
+you can see both the service will be running
+
