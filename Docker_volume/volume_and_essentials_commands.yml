@@ -1,0 +1,39 @@
+
+
+Volume and its essentials commands
+
+
+1)	Command to create the volume  
+docker volume create volumename
+
+2)	See the created and list of the volume 
+docker volume ls
+
+
+3)	Check the volume details like its created date, drivers, labels, mountpoint, name by command 
+docker volume inspect volumename
+
+
+4)	You can delete the volume by command 
+docker volume rm volumename
+
+
+5)	You can delete/remove all the volumes at one go by command 
+docker volume prune
+
+
+bydefault volumes is stored inside the below location..
+
+Stored in /var/lib/docker/volumes/myvolume/_data
+
+and the bind mount is another way --
+
+Bind Mount
+
+Maps a host directory or file to the container.
+
+Example: -v /home/user/data:/data
+
+
+
+

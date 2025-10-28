@@ -88,7 +88,15 @@ this is the container to container volume shares.
 creating volume through the command line.
 
 1)	Fire command to create the volume through the command line
-docker run -it --name volcont -v/volumes ubuntu /bin/sh
+docker run -it --name volcont -v/volumes ubuntu /bin/sh 
+
+or we can use
+
+docker run -it --name container1 -v myvolume1:/tmp/test ubuntu /bin/bash
+
+
+(this will share the volume from the container /tmp/test folder to the /var/lib/docker/volumes folder (the default locations of the containers...))
+
 
 2)	Now create some files inside this container Krushna.txt
 
