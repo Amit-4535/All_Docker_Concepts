@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  webapplication1:
+    image: ubuntu:latest
+    ports:
+      - "8080:80"
+
+  webapplication2:
+    image:  busybox:latest
+    ports:
+      - "5000:5000"
+

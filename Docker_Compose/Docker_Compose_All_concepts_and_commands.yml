@@ -1,0 +1,102 @@
+
+
+Docker Compose
+
+
+Docker compose is a tool for defining and running multi container applications..
+Instead of starting each container manually with long docker run commands, you can define everything in one place: containers, networks, volumes, environment variables, ports, etc.
+Why Use Docker Compose?
+•	Manage multi-container setups easily (e.g., web + app + database).
+•	All configurations in a single docker-compose.yml file.
+•	Easy to scale and manage lifecycle (start, stop, rebuild).
+•	Clean and repeatable deployments (especially in dev/test setups).
+
+
+you can run the command as docker-compose up/down/top/start like wise
+
+
+commands --
+
+1) docker-compose up
+start all the container which is mentioned in the docker-compose file
+
+2) docker-compose down 
+bring down remove the containers and service 
+
+3) docker-compose down --volume
+(this will removing the running containers and its attached volume/// it will not impact on created volume through the command  docker volume create volumename)
+
+4) docker-compose create
+creating the containers
+
+5) docker-compose rm
+removing the containers
+
+6) docker-compose up --no-start
+it will create the containers but not start the containers
+
+7) docker-compose start
+stop all the containers
+
+8) docker-compose stop
+start all the containers
+
+9) docker-compose up -d
+starting and sending into the detached mode
+
+10) docker-compose ps 
+showing you all the containers
+
+11) docker-compose pause
+pause the containers
+
+12) docker-compose unpause
+unpause the containers
+
+13) docker-compose kill
+kill the containers
+
+14) docker-compose port web 80
+ it will show you web service is running or not on port 80
+
+15) docker-compose logs -f
+showing you the logs of your containers
+
+16) docker-compose pull
+pull the images
+
+17) docker-compose push
+used to push the images
+
+18) docker-compose version
+will show you the version of docker compose
+
+19) docker-compose scale web=4
+this command will create multiple containers 4 at one go
+The important note here is  we are not using the container name at the time of scaling the containers, we are using the service name, which is already defined in the docker-compose.yml
+file.. so that is important here..
+
+
+20) docker-compose top
+showing you the active process inside the containers.
+
+21) docker-compose down --rmi all
+this command is used to delete all the images which was created by the docker compose file..
+
+
+
+
+
+What is Docker Compose?
+			Docker Compose is a tool for defining and running multi-container Docker applications using a single YAML file (docker-compose.yml).
+It helps you manage multiple services (like web, database, cache, etc.) easily, without manually running docker run commands for each container.
+
+
+Why use Docker Compose?
+•	Easily define multiple containers/services in one file.
+•	Bring up your app with one command: docker-compose up.
+•	Handle networking between services automatically.
+•	Manage environment variables and volumes cleanly.
+•	Useful in development, testing, and CI/CD pipelines
+
+

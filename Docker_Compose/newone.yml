@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  webapplication1:
+    image: ubuntu:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - webapp1data:/data
+    command: tail -f /dev/null		# this command useful in keeping your container running
+	
+
+  webapplication2:
+    image: busybox:latest
+    ports:
+      - "5000:5000"
+    volumes:
+      - webapp2data:/data
+    command: tail -f /dev/null 		# this command useful in keeping your container running
+
+volumes:
+  webapp1data:
+  webapp2data:
+
