@@ -1,0 +1,107 @@
+
+
+
+Docker Network
+
+
+Docker networking allows containers to communicate:
+
+With each other
+
+With the host system
+
+With the outside world (internet)
+
+
+Every container in Docker gets its own network namespace, meaning it has:
+
+Its own IP address
+
+Its own routing table
+
+Its own interfaces
+
+But containers can share or connect to the same network for communication.
+
+
+
+Default Docker Networks
+When Docker is installed, it automatically creates three default networks:
+
+Network Name	Driver Type	Description
+bridge	        bridge	        Default network for standalone containers. Containers get an internal IP and can reach the outside via NAT.
+host	        host    	Removes network isolation — container shares the host’s network stack (same IP as host).
+none	        null    	Disables all networking (no internet, no container-to-container communication).
+
+Default network is the bridge network..
+
+for the host network -- The host network is unique and tied directly to the host’s network stack.
+(that means we can do this network or you will get at the time of docker installation, we can not create another host network inside the single host)
+
+for none network as well -- we can define the single none network in the host only once..
+you can attach your container to the none network by the command.
+docker run -it --name nonecontainer --network=none ubuntu /bin/bash
+
+
+Types of Docker Network Drivers
+Docker provides built-in network drivers:
+
+Driver	        Description	                                                                Use Case
+bridge	        Default local network for containers on a single host	                        Simple app-to-app communication
+host	        Shares host network stack	                                                High performance, access host network directly
+none	        No network interface	                                                        Secure or restricted containers
+overlay	        Multi-host networking using Swarm	                                        Communication across nodes in a Docker Swarm cluster
+macvlan	        Assigns a MAC address to each container so it appears as a physical device	When containers need to appear as separate physical hosts on your LAN
+ipvlan	        Similar to macvlan but more flexible and efficient	                        Used for advanced network setups
+network plugin	Third-party drivers like Calico, Weave, etc.	                                Kubernetes, production-grade setups
+
+
+
+1)To check the existing network 
+docker network ls
+
+2) you can check the network information by the commmand
+docker network inspect networkname
+
+3) command to create the network
+docker network create -d drivername networkname
+
+4) command to create the container and assigning network at the same time
+docker run -it --name containername --network=networkname imagename /bin/bash
+
+5) you can check your container is attached to which network by the command 
+docker inspect containername/id
+
+6) you can also attach your container to none network as well
+docker run -it --name nonecontainer --network=none ubuntu /bin/bash
+
+7) 7)	let us suppose you added container to the xyz network and now you want to attach that container to the abc network then first you need to disconnect container from that xyz network by command 
+ docker network disconnect networkname  containerID
+
+8) and then attach that container into the required network by the 
+docker network connect bridge containerID
+
+9) you can remove the network by command 
+docker network rm networkname
+
+10) you can delete all the networks by command 
+docker network prune
+
+
+11) you can disconnect your container from the network by the command
+docker network disconnect networkid containerid
+
+12) you can connect your container to the network by the command
+docker network connect networkid containerid
+
+
+
+notes --
+
+Only one host and one none network exist per Docker host.
+
+Both are global and system-defined — you can use them but not create or duplicate them.
+
+Containers using them will show empty "IPAddress" in docker inspect.
+
+
