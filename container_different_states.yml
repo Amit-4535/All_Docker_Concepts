@@ -1,0 +1,70 @@
+
+
+Containers different states
+
+
+1) created --
+            meaning --
+            Container is created from an image but not started yet
+            scenario -- After docker create, before docker start
+            how to check -- Check: docker ps -a → “Created”
+            Start: docker start <container_id>
+
+
+2) 
+
+Containers different states
+
+
+1) created --
+            meaning --
+            Container is created from an image but not started yet
+            scenario -- After docker create, before docker start
+            how to check -- Check: docker ps -a → “Created”
+            Start: docker start <container_id>
+
+
+2) running -- 
+            The main process (PID 1) is actively running (containers is running)
+            After docker run or docker start
+
+
+
+3) paused  --
+            Container is running but processes are frozen 
+            scnario -- You paused it manually
+            maunally you do this -- Pause: docker pause <container_id>
+            Resume: docker unpause <container_id>
+
+
+
+4) restarting -- 
+                Docker is restarting the container automatically (per restart policy)
+                Happens if process crashes
+
+
+
+5) exited --
+            Container has stopped running
+            Normal process completion or error
+            check the exit status -- Check exit code: docker inspect --format='{{.State.ExitCode}}' <container_id>
+
+
+
+6) dead --
+          Docker tried to clean up but container process couldn’t be killed properly
+          reason -- Rare — system crash, corruption, or Docker bug
+          you can clear it by -- Clean manually: docker rm -f <container_id>
+
+
+
+
+          Summary — Docker Container States
+State	    Key Command	                  Purpose
+created	    docker create	          Container made but not started
+running	    docker run / docker start	  Process is active
+paused	    docker pause	          Temporarily frozen
+restarting  automatic	                  Restart loop
+exited	    docker stop / process exit 	  Stopped
+dead	    rare internal error	          Cleanup manually
+
