@@ -1,0 +1,88 @@
+
+
+Dockerfile
+
+
+
+A Dockerfile is a plain text file with a list of instructions that Docker uses to build an image.
+
+A Dockerfile is a plain text file that contains instructions to assemble a Docker image.
+Each instruction in a Dockerfile creates a layer in the final image. The more efficient your instructions, the smaller and faster your image.
+
+
+
+Commonly Used Dockerfile Instructions (Arguments)
+Instruction	    Purpose
+FROM	            Base image to build from (e.g., ubuntu, node, alpine)
+RUN	            Run a command in a shell (e.g., installing software)
+CMD	            Default command when the container starts
+ENTRYPOINT	    Defines a fixed executable for the container
+COPY	            Copy files/directories from host to image
+ADD	            Like COPY but can handle URLs and unpack tarballs
+WORKDIR	            Set working directory for following commands
+EXPOSE	            Document which port will be used (not required to publish)
+ENV	            Set environment variables
+ARG	            Define variables available at build time
+LABEL	            Add metadata to the image (e.g., version, maintainer)
+VOLUME	            Declare mount point for persistent storage
+USER	            Set which user the container runs as
+HEALTHCHECK	    Define a command to check container health
+ONBUILD	            Add trigger for future builds (used in base images)
+SHELL	            Change the default shell used in RUN commands
+
+
+
+keyword             Description
+
+FROM                Sets the base image (must be first)
+
+
+RUN                 Executes a command in the image (e.g., install packages)   some RUN command examples in Dockerfile (RUN apt-get update && apt-get install -y nginx curl)
+                    (RUN mkdir -p /app/logs)     (RUN useradd -ms /bin/bash appuser)     (RUN chmod -R 755 /var/www/html)       (RUN pip install flask requests)  
+                    (RUN git clone https://github.com/some/repo.git /app)       (RUN apt-get update && apt-get install -y nodejs npm
+                    RUN npm install -g express)   (RUN chmod +x setup.sh && ./setup.sh)      (RUN apt-get clean && rm -rf /var/lib/apt/lists/*)
+                    (RUN apt update && apt install -y nginx && rm -rf /var/lib/apt/lists/*)              
+
+
+CMD                 Default command when container runs ( some CMD command examples -- CMD ["nginx", "-g", "daemon off;"] 
+                    CMD ["python3", "app.py"]    CMD ["/entrypoint.sh"])
+
+
+
+COPY                Copies files from host to container      -- examples (COPY index.html /usr/share/nginx/html/)    (COPY app/ /usr/src/app/)
+                    (COPY config.json /etc/app-config/settings.json)    (COPY *.py /app/)      (COPY ["app.py", "requirements.txt", "/app/"])      (COPY .env /app/)
+
+
+ADD                 Like COPY, but supports URLs and tar extraction    examples – (COPY .env /app/)     (ADD app/ /usr/src/app/)     (ADD https://example.com/app.tar.gz /tmp/) 
+                    (ADD code.tar.gz /app/)     (ADD settings.json /etc/app-config/config.json)  
+
+
+
+
+WORKDIR             Sets working directory inside container    examples – (WORKDIR /app)    (WORKDIR /project/src)      (WORKDIR /project/config)      (WORKDIR /usr/src/app)
+
+
+ENV                 Sets environment variables   examples – (ENV key1=value1 key2=value2)    (ENV APP_ENV=production)     (ENV VERSION=1.0 AUTHOR="Amit Rao")    (ENV APP_HOME=/usr/src/app)
+
+
+EXPOSE              Informs Docker that the container listens on a port    examples – (EXPOSE 80)   (EXPOSE 80 443)    (EXPOSE 53/udp
+
+
+
+VOLUME              Creates a mount point for external storage   -- examples of volumes – (VOLUME ["/path/in/container"])     (VOLUME ["/data", "/logs"])     (VOLUME ["/mydata"]) 
+                    (VOLUME ["/app/data", "/app/logs"])      (VOLUME ["/var/lib/mysql"])
+
+
+
+ENTRYPOINT          Configures a container to run as an executable   examples – (ENTRYPOINT ["echo", "Hello from container"])    (ENTRYPOINT ["echo"])   
+                    (ENTRYPOINT ["python", "/myscript.py"])     (ENTRYPOINT ["nginx", "-g", "daemon off;"])     (ENTRYPOINT echo "Hello")
+
+
+
+LABEL               Adds metadata to the image    examples – (LABEL key1="value1" key2="value2")     (LABEL maintainer="amit@example.com")   
+                    (LABEL version="1.0" description="My sample app" maintainer=amit@example.com)   (LABEL version="1.0" \    description="This is a sample Docker image" \
+                    maintainer=amit@example.com)    (LABEL license="MIT")
+
+
+
+
