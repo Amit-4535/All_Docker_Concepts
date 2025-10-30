@@ -1,0 +1,22 @@
+FROM grafana/grafana:10.4.1
+COPY provisioning /etc/grafana/provisioning
+COPY dashboards /var/lib/grafana/dashboards
+EXPOSE 3000
+
+
+
+
+🧠 Explanation
+
+Includes preloaded dashboards & data sources.
+
+Ready-to-use Grafana UI for metrics visualization.
+
+
+
+
+
+
+🎯 Final Outcome
+
+A ready Grafana setup with your dashboards auto-loaded at container startup.

@@ -1,0 +1,21 @@
+FROM hashicorp/terraform:1.9
+RUN apk add --no-cache python3 py3-pip && pip install awscli
+WORKDIR /workspace
+ENTRYPOINT ["terraform"]
+
+
+
+🧠 Explanation
+
+Terraform as base image.
+
+Adds AWS CLI for IaC deployments.
+
+Default command: terraform.
+
+
+
+
+🎯 Final Outcome
+
+A Terraform execution container that can deploy AWS infra via Jenkins or GitHub Actions.

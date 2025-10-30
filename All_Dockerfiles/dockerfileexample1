@@ -1,0 +1,15 @@
+
+# Base image
+FROM ubuntu:20.04
+# Set environment variable
+ENV DEBIAN_FRONTEND=noninteractive
+# Install packages
+RUN apt-get update && apt-get install -y nginx 
+# Expose port
+EXPOSE 80
+# Set working directory
+WORKDIR /var/www/html  
+# Copy local files into container
+COPY . /var/www/html  
+# Default command to run
+CMD ["nginx", "-g", "daemon off;"]  

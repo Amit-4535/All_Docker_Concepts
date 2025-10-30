@@ -1,0 +1,19 @@
+
+
+FROM alpine:3.20
+RUN apk add --no-cache curl bash iputils
+CMD ["bash"]
+
+
+
+🧠 Explanation
+
+Lightweight Linux container with network tools.
+
+Used for debugging in Kubernetes or Docker networks.
+
+
+
+🎯 Final Outcome
+
+A handy network troubleshooting container for ping, curl, etc.

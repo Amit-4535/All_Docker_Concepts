@@ -1,0 +1,24 @@
+FROM nginx:1.27-alpine
+COPY ./dist /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY ./certs /etc/ssl/certs
+EXPOSE 443
+CMD ["nginx", "-g", "daemon off;"]
+
+
+
+
+🧠 Explanation
+
+Deploys static files with HTTPS support.
+
+Copies your SSL certificates.
+
+Keeps container running with Nginx.
+
+
+
+
+🎯 Final Outcome
+
+A secure HTTPS static website hosted in Docker.

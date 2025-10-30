@@ -1,0 +1,25 @@
+
+
+
+FROM prom/prometheus:v2.54.0
+COPY prometheus.yml /etc/prometheus/prometheus.yml
+EXPOSE 9090
+CMD ["--config.file=/etc/prometheus/prometheus.yml"]
+
+
+
+
+Explanation
+
+Custom Prometheus image.
+
+Copies your own monitoring configuration.
+
+Exposes default monitoring port 9090.
+
+
+
+
+🎯 Final Outcome
+
+A Prometheus instance scraping metrics from services in your network.

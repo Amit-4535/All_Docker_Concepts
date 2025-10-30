@@ -1,0 +1,28 @@
+
+
+FROM openjdk:21-jdk-slim
+WORKDIR /app
+COPY target/myapp.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+
+
+
+
+Explanation
+
+Uses OpenJDK runtime.
+
+Copies compiled .jar file.
+
+Exposes port 8080 (Spring Boot default).
+
+Executes the app using java -jar.
+
+
+
+
+Final Outcome
+
+A self-contained Java web service, ready for deployment to any server.

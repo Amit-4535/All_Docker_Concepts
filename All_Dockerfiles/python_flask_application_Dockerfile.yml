@@ -1,0 +1,43 @@
+
+
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 5000
+CMD ["python", "app.py"]
+
+
+
+
+
+Explanation
+
+FROM python:3.12-slim → Uses a lightweight Python image.
+
+WORKDIR /app → Sets /app as the working directory.
+
+COPY requirements.txt . → Copies dependency list.
+
+RUN pip install ... → Installs project dependencies.
+
+COPY . . → Copies all source code.
+
+EXPOSE 5000 → Opens port 5000 (Flask default).
+
+CMD ["python", "app.py"] → Runs the Flask app.
+
+
+
+
+Final Outcome
+
+A ready-to-run Flask web app container accessible at http://localhost:5000.
+
+
+

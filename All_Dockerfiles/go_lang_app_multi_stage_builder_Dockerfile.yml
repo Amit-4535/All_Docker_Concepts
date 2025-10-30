@@ -1,0 +1,29 @@
+FROM golang:1.22 AS builder
+WORKDIR /src
+COPY . .
+RUN go mod tidy && go build -o app .
+
+FROM alpine:3.20
+WORKDIR /app
+COPY --from=builder /src/app .
+EXPOSE 8080
+CMD ["./app"]
+
+
+
+
+Explanation
+
+First stage compiles Go code.
+
+Second stage copies only the binary.
+
+Multi-stage build keeps the image tiny (only a few MBs).
+
+
+
+
+
+🎯 Final Outcome
+
+Lightweight Go-based microservice that starts instantly.

@@ -1,0 +1,23 @@
+FROM jenkins/inbound-agent:latest
+USER root
+RUN apt-get update && apt-get install -y docker.io python3 python3-pip
+RUN pip install awscli boto3
+USER jenkins
+
+
+
+
+🧠 Explanation
+
+Extends Jenkins agent image.
+
+Adds Docker, Python, and AWS CLI.
+
+Switches back to jenkins user for security.
+
+
+
+
+🎯 Final Outcome
+
+Custom Jenkins build agent pre-equipped for CI/CD pipelines.

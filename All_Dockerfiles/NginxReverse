@@ -1,0 +1,24 @@
+
+
+
+
+FROM nginx:1.27-alpine
+COPY nginx.conf /etc/nginx/nginx.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+
+
+
+Explanation
+
+Uses official Nginx.
+
+Copies a custom Nginx configuration file.
+
+Runs Nginx in foreground (so container stays alive).
+
+
+
+Final Outcome
+
+Acts as a reverse proxy or static file server, routing requests to backend services.

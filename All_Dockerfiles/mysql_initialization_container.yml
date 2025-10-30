@@ -1,0 +1,23 @@
+FROM mysql:8.4
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=devopsdb
+COPY init.sql /docker-entrypoint-initdb.d/
+EXPOSE 3306
+
+
+
+
+🧠 Explanation
+
+Starts MySQL with a root password.
+
+Auto-runs init.sql to create DB and tables.
+
+Exposes MySQL port 3306.
+
+
+
+
+🎯 Final Outcome
+
+A ready MySQL database initialized automatically for your application.
