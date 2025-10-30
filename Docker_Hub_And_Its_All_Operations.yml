@@ -1,0 +1,87 @@
+
+
+Docker Hub and its all the operations
+
+Docker Hub is Docker’s official cloud-based registry service where you can:
+Store, manage, and share Docker images.
+
+Use it as a central repository for your containerized applications.
+
+Integrate it into your CI/CD pipeline for automated builds and deployments.
+
+
+You can think of it as the “GitHub for Docker images.”
+
+
+
+🌍 2. Key Concepts in Docker Hub
+Concept   	    Description
+Repository	    A collection of Docker images with the same name but different tags (versions).
+Image	            A packaged snapshot of your application environment.
+Tag	            Version or variant of an image (e.g., 1.0, latest, dev).
+Namespace	    Your Docker Hub username or organization name.
+Automated Build	    A feature that builds an image automatically from a GitHub/GitLab repo.
+Webhooks	    Triggers that notify external services after an image push or build.
+Access Tokens	    API keys used for secure authentication instead of passwords.
+
+
+
+Login to Docker Hub
+docker login
+
+It will prompt for:
+
+Username
+
+Password (or personal access token)
+
+
+You can also log in non-interactively:
+  docker login -u <username> -p <password>  # not recommended (plain text)
+
+
+for logout you can do or refer the command --  docker logout
+
+
+
+Demo with the example..
+
+1) create any container using the command -- docker run -it --name dockerhubcontainer ubuntu /bin/bash
+
+(now you can install the softwares, add the files create the directories and anything that you want)
+
+2) now create the image from that container by the commit command 
+docker commit containerID imagename
+
+(here you can give any name to your image -- i used as a image1)
+
+
+3) now tag to your image as below --
+docker tag image1 amit4535/image1:latest
+
+(here the image1 is the imagename, amit4535 is the username, amit4535:image1 (you need to create the image1 repo in your dockerhub account), :latest is the tag that we are assigning to that image)
+
+4) now login to the dockerhub from the server use the command 
+docker login -u amit-4535             (amit4535 is the username)
+(once enter the password or the PAT (personal access token)  you will be logined successfully to the dockerhub account)
+
+
+5) push the image to the docker hub by the command 
+docker push amit4535/immage1:latest
+
+(here push is the command, amit4535 is the username, image1 is the repo name, latest is the tag that is assigned to the image)
+
+once push this image you can see the tags are available inside your repository.
+
+
+6) you can pull the similar image by the command
+docker pull amit4535/image1:latest 
+
+(pull is the command, amit4535 is the username, image1 is the repo and latest is the tag)
+
+
+7) you can create the container from that pulled image by the command --
+docker run -it --name pullcontainer amit4535/image1 /bin/bash
+
+
+this is how we are using the tags, then pushing the images and pulling the images
